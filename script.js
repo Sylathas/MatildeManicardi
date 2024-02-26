@@ -99,9 +99,9 @@ $("#grid").on("click", ".project", function () {
             target = document.getElementById('projectPageText'),
             converter = new showdown.Converter(),
             html = converter.makeHtml(text);
-        console.log(text, html);
         target.innerHTML = html;
     } else {
+        console.log("hey");
         $("#projectPageText").css("display", "none");
     }
     if (!project.link) {
