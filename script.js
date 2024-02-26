@@ -10,6 +10,7 @@ window.mobileCheck = function () {
 
 showdown.setOption('noHeaderId', 'true');
 let openProject = 0;
+let update = false;
 
 $("#homeWork, #navBarWork, #navBarBottomWork").on("click", function () {
     $("#Home, #About, #Project").css({ 'opacity': 0 });
@@ -167,6 +168,15 @@ class Project {
     }
 }
 
+//Add Texts
+const querySnapshotTexts = await getDocs(collection(db, "texts"));
+querySnapshotTexts.forEach((doc) => {
+    $("#intro").text(doc.data().about_bio);
+    $("#photo").css({ "background-image": 'url(' + doc.data().bio_image + ')' });
+    $("#aboutText").text(doc.data().about_bio);
+    update = doc.data().update;
+});
+
 //Create Projects
 const querySnapshot = await getDocs(collection(db, "projects"));
 querySnapshot.forEach((doc) => {
@@ -178,16 +188,11 @@ querySnapshot.forEach((doc) => {
     const text = doc.data().text;
     const type = doc.data().type;
 
-    Projects.push(new Project(name, abstract, header_credits, header_image, link, text, type));
-
-    const projectDiv = '<div class="project" id=' + Projects.length + '><div class="projectImageContainer"><div class="projectImage" style="background-image: url(' + header_image + ')"></div></div><h1 class="projectTitle">' + name + '</h1><p class="projectType">' + type + '</p> </div>';
-    $("#grid").append(projectDiv);
-});
-
-//Add Texts
-const querySnapshotTexts = await getDocs(collection(db, "texts"));
-querySnapshotTexts.forEach((doc) => {
-    $("#intro").text(doc.data().about_bio);
-    $("#photo").css({ "background-image": 'url(' + doc.data().bio_image + ')' });
-    $("#aboutText").text(doc.data().about_bio);
+    if (!update) {
+        console.log('hey');
+        Projects.push(new Project(name, abstract, header_credits, header_image, link, text, type));
+        const projectDiv = '<div class="project" id=' + Projects.length + '><div class="projectImageContainer"><div class="projectImage" style="background-image: url(' + header_image + ')"></div></div><h1 class="projectTitle">' + name + '</h1><p class="projectType">' + type + '</p> </div>';
+        $("#grid").append(projectDiv);
+        $("#update").css({ 'display': 'none' });
+    }
 });
