@@ -8,6 +8,7 @@ window.mobileCheck = function () {
     return check;
 };
 
+showdown.setOption('noHeaderId', 'true');
 let openProject = 0;
 
 $("#homeWork, #navBarWork, #navBarBottomWork").on("click", function () {
@@ -94,7 +95,12 @@ $("#grid").on("click", ".project", function () {
         $("#projectPageTextAbstract").css("display", "none");
     }
     if (project.text) {
-        $("#projectPageText").text(project.text);
+        var text = project.text,
+            target = document.getElementById('projectPageText'),
+            converter = new showdown.Converter(),
+            html = converter.makeHtml(text);
+        console.log(text, html);
+        target.innerHTML = html;
     } else {
         $("#projectPageText").css("display", "none");
     }
@@ -169,7 +175,7 @@ querySnapshot.forEach((doc) => {
     const header_credits = doc.data().header_credits;
     const header_image = doc.data().image_header;
     const link = doc.data().link;
-    const text = doc.data().textcontent;
+    const text = doc.data().text;
     const type = doc.data().type;
 
     Projects.push(new Project(name, abstract, header_credits, header_image, link, text, type));
