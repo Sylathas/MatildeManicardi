@@ -24,6 +24,7 @@ $("#homeWork, #navBarWork, #navBarBottomWork").on("click", function () {
             $("#navBarBottom").css({ 'display': 'flex' });
         }
         setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
             $("#Work").css({ 'opacity': 1 });
             $("#navBar").css({ 'opacity': 1, 'display': 'block' });
             if (window.mobileCheck()) {
@@ -43,6 +44,7 @@ $("#homeAbout, #navBarAbout, #navBarBottomAbout").on("click", function () {
             $("#navBarBottom").css({ 'display': 'flex' });
         }
         setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
             $("#About").css({ 'opacity': 1 });
             $("#navBar").css({ 'opacity': 1 });
             if (window.mobileCheck()) {
@@ -63,6 +65,7 @@ $("#navBarHome").on("click", function () {
         }
 
         setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
             $("#Home").css({ 'opacity': 1 });
         }, 100);
     }, 300);
@@ -114,6 +117,7 @@ $("#grid").on("click", ".project", function () {
         }
         $("#navBar").css({ 'display': 'block' });
         setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
             $("#Project").css({ 'opacity': 1 });
             $("#navBar").css({ 'opacity': 1 });
             if (window.mobileCheck()) {

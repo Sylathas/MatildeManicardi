@@ -349,11 +349,13 @@ body {
 
     /*MOBILE WORK*/
 
-    /*WORK*/
+    #grid {
+        padding-bottom: 13vh;
+    }
 
     .project {
         width: 100%;
-        height: 50vh;
+        height: 70vh;
         margin: 0;
     }
 
