@@ -80,8 +80,9 @@ $("#projectPageTextLink").on("click", function () {
 $("#grid").on("click", ".project", function () {
     //Change text
     var id = $(this).attr('id');
-    const project = Projects[parseInt(id) - 1];
-    openProject = parseInt(id) - 1;
+    const project = Projects[parseInt(id)];
+    console.log(project);
+    openProject = parseInt(id);
     console.log('url(' + project.image + ');');
     $("#projectPageImage").css({ "background-image": 'url(' + project.image + ')' });
     $("#projectPageTextTitle").text(project.name);
@@ -102,7 +103,6 @@ $("#grid").on("click", ".project", function () {
             html = converter.makeHtml(text);
         target.innerHTML = html;
     } else {
-        console.log("hey");
         $("#projectPageText").css("display", "none");
     }
     if (!project.link) {
@@ -155,16 +155,20 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let Projects = [];
+let ProjectsHTML = [];
 
 class Project {
-    constructor(name, abstract, credits, image, link, text, type) {
+    constructor(name, details, abstract, createdOn, credits, image, link, text, types, html) {
         this.name = name;
+        this.details = details;
         this.abstract = abstract;
+        this.createdOn = +createdOn;
         this.credits = credits;
         this.image = image;
         this.link = link;
         this.text = text;
-        this.type = type;
+        this.types = types;
+        this.html = html;
     }
 }
 
@@ -181,18 +185,33 @@ querySnapshotTexts.forEach((doc) => {
 const querySnapshot = await getDocs(collection(db, "projects"));
 querySnapshot.forEach((doc) => {
     const name = doc.data().name;
+    const details = doc.data().details;
     const abstract = doc.data().abstract;
+    const createdOn = doc.data().created_on;
     const header_credits = doc.data().header_credits;
     const header_image = doc.data().image_header;
     const link = doc.data().link;
     const text = doc.data().text;
-    const type = doc.data().type;
+    const types = doc.data().types;
 
     if (!update) {
-        console.log('hey');
-        Projects.push(new Project(name, abstract, header_credits, header_image, link, text, type));
-        const projectDiv = '<div class="project" id=' + Projects.length + '><div class="projectImageContainer"><div class="projectImage" style="background-image: url(' + header_image + ')"></div></div><h1 class="projectTitle">' + name + '</h1><p class="projectType">' + type + '</p> </div>';
-        $("#grid").append(projectDiv);
+        let typesString;
+        for (let i = 0; i < types.length; i++) {
+            if (i == 0) {
+                typesString = types[i].slice(1);
+            } else {
+                typesString = typesString + ', ' + types[i].slice(1);
+            }
+        }
+        const projectDiv = '<div class="project" id=' + Projects.length + '><div class="projectImageContainer"><div class="projectImage" style="background-image: url(' + header_image + ')"></div></div><h1 class="projectTitle">' + name + '</h1><p class="projectDetails">' + details + '</p><p class="projectType">' + typesString + '</p> </div>';
+        Projects.push(new Project(name, details, abstract, createdOn, header_credits, header_image, link, text, types, projectDiv));
+        ProjectsHTML.push({ title: name, html: projectDiv, time: new Date(createdOn * 1000) });
         $("#update").css({ 'display': 'none' });
     }
 });
+
+Projects.sort((a, b) => a.createdOn < b.createdOn);
+
+for (let i = 0; i < Projects.length; i++) {
+    $("#grid").append(Projects[i].html);
+}
