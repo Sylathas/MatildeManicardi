@@ -394,15 +394,15 @@ a {
     .projectImageContainer {
         width: 100%;
         height: 60%;
-        background-color: black;
+        background-color: white;
     }
 
     .projectImage {
         position: static;
         margin: 0 auto 0 auto;
-        width: 80%;
+        width: 100%;
         height: 100%;
-        background-size: cover;
+        background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
         transform: none;
@@ -410,14 +410,19 @@ a {
 
     .projectTitle {
         font-family: Helvetica;
-        text-decoration: underline;
         font-size: 25px;
         padding: 0 5% 0 5%;
     }
 
+    .projectDetails {
+        padding: 3% 5% 0 5%;
+        font-size: 20px;
+    }
+
     .projectType {
         font-style: italic;
-        padding: 0 5% 0 5%;
+        padding: 2% 5% 0 5%;
+        font-size: 20px;
     }
 
     /*PROJECT PAGE*/
