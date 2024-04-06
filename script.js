@@ -86,33 +86,17 @@ $("#grid").on("click", ".project", function () {
     console.log('url(' + project.image + ');');
     $("#projectPageImage").css({ "background-image": 'url(' + project.image + ')' });
     $("#projectPageTextTitle").text(project.name);
-    if (project.credits) {
-        $("#projectPageCredits").text(project.credits);
-    } else {
-        $("#projectPageCredits").css("display", "none");
-    }
-    if (project.abstract) {
-        $("#projectPageTextAbstract").text(project.abstract);
-    } else {
-        $("#projectPageTextAbstract").css("display", "none");
-    }
-    if (project.text) {
-        var text = project.text,
-            target = document.getElementById('projectPageText'),
-            converter = new showdown.Converter(),
-            html = converter.makeHtml(text);
-        target.innerHTML = html;
-    } else {
-        $("#projectPageText").css("display", "none");
-    }
+    $("#projectPageCredits").text(project.credits);
+    $("#projectPageTextAbstract").text(project.abstract);
+    var text = project.text,
+        target = document.getElementById('projectPageText'),
+        converter = new showdown.Converter(),
+        html = converter.makeHtml(text);
+    target.innerHTML = html;
     if (!project.link) {
         $("#projectPageTextLink").css("display", "none");
     }
-    if (project.type) {
-        $("#projectPageType").text(project.type);
-    } else {
-        $("#projectPageType").css("display", "none");
-    }
+    $("#projectPageType").text(project.type);
     //Transition Page
     $("#Home, #Work, #About").css({ 'opacity': 0 });
     setTimeout(() => {
