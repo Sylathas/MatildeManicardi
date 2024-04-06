@@ -80,10 +80,17 @@ $("#projectPageTextLink").on("click", function () {
 $("#grid").on("click", ".project", function () {
     //Change text
     var id = $(this).attr('id');
-    const project = Projects[parseInt(id)];
-    console.log(project);
+    let index;
+    for (let i = 0; i < Projects.length; i++) {
+        if (Projects[i].id == id) {
+            index = i;
+            break
+        }
+    }
+    console.log(Projects, index, id);
+    const project = Projects[index];
+    console.log(project, this);
     openProject = parseInt(id);
-    console.log('url(' + project.image + ');');
     $("#projectPageImage").css({ "background-image": 'url(' + project.image + ')' });
     $("#projectPageTextTitle").text(project.name);
     $("#projectPageCredits").text(project.credits);
@@ -139,10 +146,9 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let Projects = [];
-let ProjectsHTML = [];
 
 class Project {
-    constructor(name, details, abstract, createdOn, credits, image, link, text, types, html) {
+    constructor(name, details, abstract, createdOn, credits, image, link, text, types, html, id) {
         this.name = name;
         this.details = details;
         this.abstract = abstract;
@@ -153,6 +159,7 @@ class Project {
         this.text = text;
         this.types = types;
         this.html = html;
+        this.id = id;
     }
 }
 
@@ -188,14 +195,12 @@ querySnapshot.forEach((doc) => {
             }
         }
         const projectDiv = '<div class="project" id=' + Projects.length + '><div class="projectImageContainer"><div class="projectImage" style="background-image: url(' + header_image + ')"></div></div><h1 class="projectTitle">' + name + '</h1><p class="projectDetails">' + details + '</p><p class="projectType">' + typesString + '</p> </div>';
-        Projects.push(new Project(name, details, abstract, createdOn, header_credits, header_image, link, text, types, projectDiv));
-        ProjectsHTML.push({ title: name, html: projectDiv, time: new Date(createdOn * 1000) });
+        Projects.push(new Project(name, details, abstract, createdOn, header_credits, header_image, link, text, types, projectDiv, Projects.length));
         $("#update").css({ 'display': 'none' });
     }
 });
 
 Projects.sort((a, b) => a.createdOn < b.createdOn);
-
 for (let i = 0; i < Projects.length; i++) {
     $("#grid").append(Projects[i].html);
 }
