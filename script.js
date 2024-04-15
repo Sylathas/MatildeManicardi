@@ -100,9 +100,6 @@ $("#grid").on("click", ".project", function () {
         converter = new showdown.Converter(),
         html = converter.makeHtml(text);
     target.innerHTML = html;
-    if (!project.link) {
-        $("#projectPageTextLink").css("display", "none");
-    }
     $("#projectPageType").text(project.type);
     //Transition Page
     $("#Home, #Work, #About").css({ 'opacity': 0 });
@@ -163,12 +160,14 @@ class Project {
     }
 }
 
-//Add Texts
+//Add Texts, change Font Sizes
 const querySnapshotTexts = await getDocs(collection(db, "texts"));
 querySnapshotTexts.forEach((doc) => {
     $("#intro").text(doc.data().about_bio);
     $("#photo").css({ "background-image": 'url(' + doc.data().bio_image + ')' });
     $("#aboutText").text(doc.data().about_bio);
+    const projectTitleSize = doc.data().title_size_in_project + 'px';
+    $('#projectPageTextTitle').css('font-size', projectTitleSize);
     update = doc.data().update;
 });
 
