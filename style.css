@@ -294,6 +294,16 @@ a {
     font-size: 14px;
 }
 
+#credits {
+    margin-top: 10vh;
+    font-style: italic;
+    font-size: 12px;
+}
+
+#credits a {
+    color: red;
+}
+
 /*MOBILE*/
 
 @media only screen and (max-width: 600px) {

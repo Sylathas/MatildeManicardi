@@ -73,10 +73,6 @@ $("#navBarHome").on("click", function () {
     }, 300);
 });
 
-$("#projectPageTextLink").on("click", function () {
-    window.open(Projects[openProject].link, '_blank');
-});
-
 $("#grid").on("click", ".project", function () {
     //Change text
     var id = $(this).attr('id');
@@ -122,6 +118,14 @@ $("#grid").on("click", ".project", function () {
     }, 500);
 });
 
+$(".project").on("mouseenter", function () {
+    console.log('mh');
+    $(this).children('.projectImage').css('filter', 'saturation(5)');
+});
+
+$(".project").on("mouseleave", function () {
+    $(this).children('.projectImage').css('filter', 'saturation(1)');
+});
 
 //Back-End
 
@@ -203,3 +207,4 @@ Projects.sort((a, b) => a.createdOn < b.createdOn);
 for (let i = 0; i < Projects.length; i++) {
     $("#grid").append(Projects[i].html);
 }
+
