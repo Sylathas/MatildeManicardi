@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js'
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 //Check if it's mobile
 window.mobileCheck = function () {
@@ -74,7 +74,7 @@ $("#navBarHome").on("click", function () {
 });
 
 $("#grid").on("click", ".project", function () {
-    //Change text
+    //Get correct Project
     var id = $(this).attr('id');
     let index;
     for (let i = 0; i < Projects.length; i++) {
@@ -83,9 +83,7 @@ $("#grid").on("click", ".project", function () {
             break
         }
     }
-    console.log(Projects, index, id);
     const project = Projects[index];
-    console.log(project, this);
     openProject = parseInt(id);
     $("#projectPageImage").css({ "background-image": 'url(' + project.image + ')' });
     $("#projectPageTextTitle").text(project.name);
@@ -97,6 +95,10 @@ $("#grid").on("click", ".project", function () {
         html = converter.makeHtml(text);
     target.innerHTML = html;
     $("#projectPageType").text(project.type);
+    $('#projectPageType img').each(function () {
+        $(this).after($(this).attr("alt"));
+        console.log('ciao');
+    });
     //Transition Page
     $("#Home, #Work, #About").css({ 'opacity': 0 });
     setTimeout(() => {
@@ -167,7 +169,7 @@ class Project {
 //Add Texts, change Font Sizes
 const querySnapshotTexts = await getDocs(collection(db, "texts"));
 querySnapshotTexts.forEach((doc) => {
-    $("#intro").text(doc.data().about_bio);
+    $("#intro").text(doc.data().homepage_bio);
     $("#photo").css({ "background-image": 'url(' + doc.data().bio_image + ')' });
     $("#aboutText").text(doc.data().about_bio);
     const projectTitleSize = doc.data().title_size_in_project + 'px';
@@ -176,8 +178,8 @@ querySnapshotTexts.forEach((doc) => {
 });
 
 //Create Projects
-const querySnapshot = await getDocs(collection(db, "projects"));
-querySnapshot.forEach((doc) => {
+const querySnapshot = await getDocs(collection(db, "projects"), orderBy("created_on", "desc"));
+await querySnapshot.forEach((doc) => {
     const name = doc.data().name;
     const details = doc.data().details;
     const abstract = doc.data().abstract;
@@ -200,11 +202,9 @@ querySnapshot.forEach((doc) => {
         const projectDiv = '<div class="project" id=' + Projects.length + '><div class="projectImageContainer"><div class="projectImage" style="background-image: url(' + header_image + ')"></div></div><h1 class="projectTitle">' + name + '</h1><p class="projectDetails">' + details + '</p><p class="projectType">' + typesString + '</p> </div>';
         Projects.push(new Project(name, details, abstract, createdOn, header_credits, header_image, link, text, types, projectDiv, Projects.length));
         $("#update").css({ 'display': 'none' });
+        $("#grid").append(projectDiv);
     }
 });
 
-Projects.sort((a, b) => a.createdOn < b.createdOn);
-for (let i = 0; i < Projects.length; i++) {
-    $("#grid").append(Projects[i].html);
-}
+Projects.sort((a, b) => a.createdOn - b.createdOn);
 
