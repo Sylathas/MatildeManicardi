@@ -201,9 +201,12 @@ await querySnapshot.forEach((doc) => {
         const projectDiv = '<div class="project" id=' + Projects.length + '><div class="projectImageContainer"><div class="projectImage" style="background-image: url(' + header_image + ')"></div></div><h1 class="projectTitle">' + name + '</h1><p class="projectDetails">' + details + '</p><p class="projectType">' + typesString + '</p> </div>';
         Projects.push(new Project(name, details, abstract, createdOn, header_credits, header_image, link, text, types, projectDiv, Projects.length));
         $("#update").css({ 'display': 'none' });
-        $("#grid").append(projectDiv);
     }
 });
 
 Projects.sort((a, b) => a.createdOn - b.createdOn);
+
+for (let i = 0; i < Projects.length; i++) {
+    $("#grid").append(Projects[i].html);
+}
 
