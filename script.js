@@ -94,11 +94,10 @@ $("#grid").on("click", ".project", function () {
         converter = new showdown.Converter(),
         html = converter.makeHtml(text);
     target.innerHTML = html;
-    $("#projectPageType").text(project.type);
-    $('#projectPageType img').each(function () {
-        $(this).after($(this).attr("alt"));
-        console.log('ciao');
+    $('#projectPageText img').each(function () {
+        $(this).after("<p class='imageDesc'>" + $(this).attr("alt") + "</p>");
     });
+    $("#projectPageType").text(project.type);
     //Transition Page
     $("#Home, #Work, #About").css({ 'opacity': 0 });
     setTimeout(() => {

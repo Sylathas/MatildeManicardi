@@ -267,6 +267,12 @@ a {
     width: 100%;
 }
 
+.imageDesc {
+    text-align: center;
+    font-style: italic;
+    margin-top: 0;
+}
+
 #projectPageTextLink {
     margin: 0;
     color: red;
