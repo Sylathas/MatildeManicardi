@@ -204,7 +204,7 @@ await querySnapshot.forEach((doc) => {
     }
 });
 
-Projects.sort((a, b) => a.createdOn - b.createdOn);
+Projects.sort((a, b) => b.createdOn - a.createdOn);
 
 for (let i = 0; i < Projects.length; i++) {
     $("#grid").append(Projects[i].html);
