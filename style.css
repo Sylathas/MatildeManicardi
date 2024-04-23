@@ -495,6 +495,10 @@ a {
 
     /*ABOUT*/
 
+    #About {
+        height: 115vh;
+    }
+
     #photo {
         margin-top: 10vh;
         width: 50vw;
