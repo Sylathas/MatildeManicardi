@@ -496,6 +496,7 @@ a {
     /*ABOUT*/
 
     #photo {
+        margin-top: 10vh;
         width: 50vw;
         height: 30vh;
     }
@@ -503,5 +504,9 @@ a {
     #aboutText {
         text-align: center;
         width: 90vw;
+    }
+
+    #credits {
+        margin-top: 0;
     }
 }
