@@ -286,6 +286,7 @@ a {
 /*ABOUT*/
 
 #photo {
+    margin-top: 10vh;
     width: 30vw;
     height: 50vh;
     background-image: url('');
@@ -295,13 +296,14 @@ a {
 }
 
 #aboutText {
-    margin-top: 10vh;
+    margin-top: 5vh;
     width: 80vw;
     font-size: 14px;
+    text-align: center;
 }
 
 #credits {
-    margin-top: 10vh;
+    margin-top: 5vh;
     font-style: italic;
     font-size: 12px;
 }

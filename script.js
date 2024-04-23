@@ -170,7 +170,11 @@ const querySnapshotTexts = await getDocs(collection(db, "texts"));
 querySnapshotTexts.forEach((doc) => {
     $("#intro").text(doc.data().homepage_bio);
     $("#photo").css({ "background-image": 'url(' + doc.data().bio_image + ')' });
-    $("#aboutText").text(doc.data().about_bio);
+    var text = doc.data().about_bio,
+        target = document.getElementById('aboutText'),
+        converter = new showdown.Converter(),
+        html = converter.makeHtml(text);
+    target.innerHTML = html;
     const projectTitleSize = doc.data().title_size_in_project + 'px';
     $('#projectPageTextTitle').css('font-size', projectTitleSize);
     update = doc.data().update;
