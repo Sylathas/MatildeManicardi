@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.82d196a4.css",
+    "main.css": "/static/css/main.89113541.css",
     "main.js": "/static/js/main.01900037.js",
     "static/js/453.99dcf01f.chunk.js": "/static/js/453.99dcf01f.chunk.js",
     "static/media/marked.cjs": "/static/media/marked.9d11e79e65a241a47955.cjs",
@@ -9,12 +9,12 @@
     "static/media/ApfelGrotezk-Regular.woff2": "/static/media/ApfelGrotezk-Regular.fdd043bf9f10d8422033.woff2",
     "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/index.html",
-    "main.82d196a4.css.map": "/static/css/main.82d196a4.css.map",
+    "main.89113541.css.map": "/static/css/main.89113541.css.map",
     "main.01900037.js.map": "/static/js/main.01900037.js.map",
     "453.99dcf01f.chunk.js.map": "/static/js/453.99dcf01f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.82d196a4.css",
+    "static/css/main.89113541.css",
     "static/js/main.01900037.js"
   ]
 }
